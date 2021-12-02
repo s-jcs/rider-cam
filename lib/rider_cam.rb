@@ -3,6 +3,7 @@
 require 'yaml'
 require 'net/http'
 require 'google/apis/driveactivity_v2'
+require 'google/apis/drive_v3'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'fileutils'
@@ -12,19 +13,23 @@ class RiderCam
 
   OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze # NOTE: specific URI to express out of browser apps
   TOKEN_PATH = File.join(Dir.pwd, 'tmp/token.yaml').freeze # NOTE: store user access and refresh token for use after first time
-  SCOPE = Google::Apis::DriveactivityV2::AUTH_DRIVE_ACTIVITY_READONLY
+  SCOPE = Google::Apis::DriveV3::AUTH_DRIVE
 
   attr_accessor :config
 
   def initialize
     @config = YAML.load_file(File.join(Dir.pwd, 'config/drive.yml'))
+    @drive = Google::Apis::DriveV3::DriveService.new
+
+    @drive.authorization = authorize
+    @drive.request_options.retries = 3
   end
 
   def print_files
-    session.files.each do |file|
-      puts file.title
-    end
+    @drive.list_files
   end
+
+  private 
 
   def authorize
     client_id = Google::Auth::ClientId.new(@config['client_id'], @config['client_secret'])
