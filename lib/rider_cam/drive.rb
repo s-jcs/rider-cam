@@ -15,18 +15,20 @@ module RiderCam
     TOKEN_PATH = File.join(Dir.pwd, 'tmp/token.yaml').freeze # NOTE: store user access and refresh token for use after first time
     SCOPE = Google::Apis::DriveV3::AUTH_DRIVE # NOTE: full authority
 
-    attr_accessor :config
+    attr_accessor :config, :service
 
     def initialize
       @config = YAML.load_file(File.join(Dir.pwd, 'config/drive.yml'))
-      @drive = Google::Apis::DriveV3::DriveService.new
+      @service = Google::Apis::DriveV3::DriveService.new
 
-      @drive.authorization = authorize
-      @drive.request_options.retries = 3
+      @service.authorization = authorize
+      @service.request_options.retries = 3
     end
 
+    def 
+
     def print_files
-      @drive.list_files
+      @service.list_files
     end
 
     private 
