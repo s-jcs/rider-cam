@@ -1,23 +1,17 @@
 # frozen_string_literal: true
 
-require 'pry-byebug'
 require './lib/rider_cam/drive.rb'
+require './lib/rider_cam/compressor.rb'
 
 module RiderCam
+  class << self
+    def check_and_upload_files
+      drive = RiderCam::Drive.new
+      drive.upload_files
+    end
 
-  def self.upload_files(dir = './tmp/uploads/')
-    drive = RiderCam::Drive.new
-
-    Dir[File.join(dir, '*.png')].each do |file_path|
-      file = drive.service.create_file(
-        { name: "#{DateTime.now.to_s}.png" },
-        fields: 'id',
-        upload_source: file_path,
-        content_type: 'image/png'
-      )
-      
-      puts "uploaded: #{file.id}"
-      File.delete(file_path)
+    def try_comp
+      RiderCam::Compressor.new.transcode
     end
   end
 end
