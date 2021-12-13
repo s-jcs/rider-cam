@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require './lib/rider_cam/drive.rb'
-require './lib/rider_cam/compressor.rb'
+require './lib/rider_cam/transcoder.rb'
 
 module RiderCam
   class << self
@@ -10,8 +10,11 @@ module RiderCam
       drive.upload_files
     end
 
-    def try_comp
-      RiderCam::Compressor.new.transcode
+    def transcode_images
+      loop do
+        RiderCam::Transcoder.convert
+        sleep(5)
+      end
     end
   end
 end
