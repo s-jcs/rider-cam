@@ -1,0 +1,1 @@
+ruby -r './lib/rider_cam.rb' -e 'RiderCam.transcode_images' > ./log/transcoder.log 2>&1
