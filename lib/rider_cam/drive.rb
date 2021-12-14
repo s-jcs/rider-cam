@@ -7,6 +7,7 @@ require 'google/apis/drive_v3'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'fileutils'
+require 'rqrcode'
 
 module RiderCam
   class Drive
@@ -32,12 +33,12 @@ module RiderCam
     end
 
     def upload_files(dir = './tmp/uploads/')
-      Dir[File.join(dir, '*.png')].each do |file_path|
+      Dir[File.join(dir, '*.mp4')].each do |file_path|
         file = @service.create_file(
-          { name: "#{DateTime.now.to_s}.png" },
+          { name: "#{DateTime.now.to_s}.mp4" },
           fields: 'id',
           upload_source: file_path,
-          content_type: 'image/png'
+          content_type: 'video/mp4'
         )
         
         puts "uploaded: #{file.id}"
@@ -55,6 +56,21 @@ module RiderCam
 
       if credentials.nil?
         url = authorizer.get_authorization_url(base_url: OOB_URI)
+        qrcode = RQRCode::QRCode.new(url)
+        png = qrcode.as_png(
+          bit_depth: 1,
+          border_modules: 4,
+          color_mode: ChunkyPNG::COLOR_GRAYSCALE,
+          color: "black",
+          file: nil,
+          fill: "white",
+          module_px_size: 6,
+          resize_exactly_to: false,
+          resize_gte_to: false,
+          size: 120
+        )
+        IO.binwrite('./tmp/qr-code.png', png.to_s)
+        system('fbi -a ./tmp/qr-code.png')
         puts "Open the following URL in the browser and enter the " \
            "resulting code after authorization:\n" + url
         code = gets

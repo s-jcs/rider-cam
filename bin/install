@@ -1,3 +1,4 @@
-sudo apt upate
+sudo apt update
 sudo apt-get install ruby-full
 sudo apt-get install ffmpeg
+sudo apt-get install fbi
