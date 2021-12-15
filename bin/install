@@ -1,7 +1,6 @@
 echo '##### installing dependencies #####'
 sudo apt update
 sudo apt-get install ruby-full
-sudo apt-get install ffmpeg
 sudo apt-get install fbi
 
 echo '##### creating symlink to etc/init.d #####'
