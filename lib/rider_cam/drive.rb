@@ -13,7 +13,7 @@ module RiderCam
   class Drive
 
     OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze # NOTE: specific URI to express out of browser apps
-    TOKEN_PATH = File.join(Dir.pwd, 'tmp/token.yaml').freeze # NOTE: store user access and refresh token for use after first time
+    TOKEN_PATH = File.join(Dir.pwd, 'tmp/token.yml').freeze # NOTE: store user access and refresh token for use after first time
     SCOPE = Google::Apis::DriveV3::AUTH_DRIVE # NOTE: full authority
 
     attr_accessor :config, :service
