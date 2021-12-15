@@ -9,6 +9,7 @@
 /test/tmp/
 /test/version_tmp/
 /tmp/*.yml
+/tmp/*.png
 /tmp/uploads/*.mp4
 /config/*.yml
 /log/*.log
