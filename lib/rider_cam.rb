@@ -16,8 +16,8 @@ module RiderCam
           drive.upload_files if drive.uploadable_files?
         else
           next if capturing
-          system("raspivid -n -b 270000 \
-                 -fps 3 -t 0 -w 1280 -h 720 \
+          system("raspivid -n -b 250000 \
+                 -fps 3 -t 0 -w 640 -h 480 \
                  -o ./tmp/uploads/#{DateTime.now.to_s}.mp4")
         end
         sleep(60)
