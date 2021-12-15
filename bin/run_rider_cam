@@ -1,2 +1,3 @@
+#!/bin/bash
 cd "$HOME/rider_cam"
-ruby -r "./lib/rider_cam.rb" -e 'RiderCam.capture_or_upload' &> ./log/app.log
+ruby -r './lib/rider_cam.rb' -e 'RiderCam.capture_or_upload' &> ./log/app.log
