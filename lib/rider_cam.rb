@@ -10,7 +10,7 @@ module RiderCam
       capturing = false
 
       loop do
-        if false # drive.net_connected?
+        if drive.net_connected?
           system('pkill raspivid')
           capturing = false
           drive.upload_files if drive.uploadable_files?
