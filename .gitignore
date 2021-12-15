@@ -11,7 +11,7 @@
 /tmp/*.yml
 /tmp/uploads/*.mp4
 /config/*.yml
-/log/
+/log/*.log
 
 # Used by dotenv library to load environment variables.
 # .env
