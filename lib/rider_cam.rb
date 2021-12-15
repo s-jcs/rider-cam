@@ -8,7 +8,8 @@ module RiderCam
     def capture_or_upload
       drive = RiderCam::Drive.new
       capturing = false
-
+      sleep(10)
+      
       loop do
         if drive.net_connected?
           system('pkill raspivid')

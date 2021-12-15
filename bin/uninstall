@@ -1,2 +1,2 @@
 echo '##### removing symlink #####'
-sudo unlink /etc/init.d/run_rider_cam.sh
+sudo unlink /etc/init.d/run_rider_cam
