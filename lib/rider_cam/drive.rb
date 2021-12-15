@@ -2,19 +2,30 @@
 
 require 'yaml'
 require 'net/http'
+
+# NOTE: google drive api
 require 'google/apis/driveactivity_v2'
 require 'google/apis/drive_v3'
+
+# NOTE: google authorization, etc.
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'fileutils'
 require 'rqrcode'
 
+# NOTE: for checking net connection
+require 'socket'
+require 'resolv-replace'
+
 module RiderCam
   class Drive
 
-    OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze # NOTE: specific URI to express out of browser apps
-    TOKEN_PATH = File.join(Dir.pwd, 'tmp/token.yml').freeze # NOTE: store user access and refresh token for use after first time
-    SCOPE = Google::Apis::DriveV3::AUTH_DRIVE # NOTE: full authority
+    # NOTE: specific URI to express out of browser apps
+    OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze 
+    # NOTE: store user access and refresh token for use after first time
+    TOKEN_PATH = File.join(Dir.pwd, 'tmp/token.yml').freeze     
+    # NOTE: full authority scope
+    SCOPE = Google::Apis::DriveV3::AUTH_DRIVE 
 
     attr_accessor :config, :service
 
@@ -26,7 +37,18 @@ module RiderCam
       @service.request_options.retries = 3
     end
 
-    def 
+    def net_connected?
+      begin
+        TCPSocket.new 'google.com', 80
+        return true
+      rescue SocketError
+        return false
+      end
+    end
+     
+    def uploadable_files?(dir = './tmp/uploads/')
+      Dir[File.join(dir, '*.mp4')].any?
+    end
 
     def print_files
       @service.list_files
@@ -49,13 +71,18 @@ module RiderCam
     private 
 
     def authorize
-      client_id = Google::Auth::ClientId.new(@config['client_id'], @config['client_secret'])
+      client_id = Google::Auth::ClientId.new(
+        @config['client_id'], 
+        @config['client_secret']
+      )
       token_store = Google::Auth::Stores::FileTokenStore.new(file: TOKEN_PATH)
       authorizer = Google::Auth::UserAuthorizer.new(client_id, SCOPE, token_store)
       credentials = authorizer.get_credentials('default')
 
       if credentials.nil?
         url = authorizer.get_authorization_url(base_url: OOB_URI)
+        # NOTE: produce QRCode for ease of access to URL.
+        #       Use fbi to view qr-code png in terminal
         qrcode = RQRCode::QRCode.new(url)
         png = qrcode.as_png(
           bit_depth: 1,
@@ -74,7 +101,11 @@ module RiderCam
         puts "Open the following URL in the browser and enter the " \
            "resulting code after authorization:\n" + url
         code = gets
-        credentials = authorizer.get_and_store_credentials_from_code(user_id: 'default', code: code, base_url: OOB_URI)
+        credentials = authorizer.get_and_store_credentials_from_code(
+          user_id: 'default', 
+          code: code, 
+          base_url: OOB_URI
+        )
       end
 
       credentials

@@ -5,15 +5,22 @@ require './lib/rider_cam/transcoder.rb'
 
 module RiderCam
   class << self
-    def check_and_upload_files
+    def capture_or_upload
       drive = RiderCam::Drive.new
-      drive.upload_files
-    end
+      capturing = false
 
-    def transcode_images
       loop do
-        RiderCam::Transcoder.convert
-        sleep(5)
+        if false # drive.net_connected?
+          system('pkill raspivid')
+          capturing = false
+          drive.upload_files if drive.uploadable_files?
+        else
+          next if capturing
+          system("raspivid -n -b 2700000 \
+                 -fps 3 -t 0 \
+                 -o ./tmp/uploads/#{DateTime.now.to_s}.mp4")
+        end
+        sleep(60)
       end
     end
   end
