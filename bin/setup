@@ -1,3 +1,2 @@
 echo '##### creating symlink to etc/init.d #####'
-sudo ln -s "$(pwd)/bin/run_rider_cam" /etc/init.d/run_rider_cam
-
+sudo ln -s "$(pwd)/services/rider_cam.service" /etc/systemd/system/rider_cam.service
