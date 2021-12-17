@@ -9,6 +9,12 @@ module RiderCam
       drive = RiderCam::Drive.new
       capturing = false
       sleep(10)
+
+      # NOTE: run LED
+      RPi::GPIO.set_numbering :board
+      RPi::GPIO.setup 40, as: :output
+      pwm = RPi::GPIO::PWM.new(40, 1)
+      pwm.start 50
       
       loop do
         if drive.net_connected?
