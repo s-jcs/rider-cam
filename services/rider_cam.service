@@ -4,7 +4,7 @@ Description=Rider Cam Service
 [Service]
 Type=simple
 Restart=on-success
-ExecStart=/usr/local/rider_cam/bin/run_rider_cam
+ExecStart=/usr/local/rider-cam/bin/run_rider_cam
 
 [Install]
 WantedBy=multi-user.target
