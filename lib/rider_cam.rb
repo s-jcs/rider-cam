@@ -2,6 +2,7 @@
 
 require './lib/rider_cam/drive.rb'
 require './lib/rider_cam/transcoder.rb'
+require 'rpi_gpio'
 
 module RiderCam
   class << self
