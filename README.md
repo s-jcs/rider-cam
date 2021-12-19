@@ -58,5 +58,5 @@ Now that you have your credentials saved you can run,
 bin/run_rider_cam
 ```
 
-And you should get a QR code on screen. Access the site and go through the OAuth consent process to receive an access token. Press enter and follow the instructions that will appear on screen. The Authentication process should only be required on the programs first run. 
+And you should get a QR code on screen. Access the site and go through the OAuth consent process to receive an access token. Press enter and follow the instructions that will appear on screen. The Authentication process should only be required on the program's first run. 
 
