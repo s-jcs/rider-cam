@@ -3,5 +3,7 @@ sudo apt update
 sudo apt-get install ruby-full
 sudo apt-get install fbi
 
-
+sudo su
+gem install bundler
+bundle install
 
