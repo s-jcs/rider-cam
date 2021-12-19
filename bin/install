@@ -5,7 +5,7 @@ sudo apt-get -y install fbi
 echo '##### installing ruby #####'
 wget https://cache.ruby-lang.org/pub/ruby/2.7/ruby-2.7.5.tar.gz
 tar xvzf ruby-2.7.5.tar.gz
-cd ruby-2.7.5.tar.gz
+cd ruby-2.7.5
 ./configure
 make
 sudo make install
