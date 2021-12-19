@@ -30,7 +30,7 @@ module RiderCam
                  -o ./tmp/uploads/#{DateTime.now.to_s}.mp4")
           capturing = true
         end
-        sleep(10)
+        sleep(5)
       end
     end
   end
