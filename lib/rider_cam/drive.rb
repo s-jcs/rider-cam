@@ -41,7 +41,7 @@ module RiderCam
       begin
         TCPSocket.new 'google.com', 80
         return true
-      rescue SocketError
+      rescue
         return false
       end
     end
