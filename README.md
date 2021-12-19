@@ -1,8 +1,6 @@
 # rider-cam
 
-Still a work in progress.
-
-A ruby based drive recorder for Raspbery Pi (Raspbian OS). 
+A test run at making a ruby based drive recorder for Raspbery Pi (Raspbian OS). 
 
 This app will...
 1) Use raspberry pi's native camera app `raspivid` to record video when offline
