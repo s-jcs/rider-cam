@@ -10,7 +10,7 @@ You will have to setup a GCP app to upload your videos onto google drive.
 
 ## How things should work...
 
-When your Raspberry Pi has access to the internet, the program will detect any video files on local disk and upload them to google drive. When you've lost internet connection the camera will start recording on its own. The Camera is currently set to take 3 frames/sec and low quality as to save space, but the values can be adjusted in `lib/rider_cam.rb`
+When your Raspberry Pi has access to the internet, the program will detect any video files on local disk and upload them to google drive. When you've lost internet connection the camera will start recording on its own. The Camera is currently set to take 3 low quality frames per sec as to save space, but the values can be adjusted in `lib/rider_cam.rb`
 
 ## Setup
 
