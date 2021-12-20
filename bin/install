@@ -1,14 +1,16 @@
 echo '##### installing dependencies #####'
 sudo apt update
 sudo apt-get -y install fbi
+sudo apt install git curl libssl-dev libreadline-dev zlib1g-dev autoconf bison build-essential libyaml-dev libreadline-dev libncurses5-dev libffi-dev libgdbm-dev
 
 echo '##### installing ruby #####'
-wget https://cache.ruby-lang.org/pub/ruby/2.7/ruby-2.7.5.tar.gz
-tar xvzf ruby-2.7.5.tar.gz
-cd ruby-2.7.5
-./configure
-make
-sudo make install
+if which ruby; then
+  echo 'ruby already installed'
+else
+  sudo apt-get install rbenv
+  rbenv install -v 2.7.1
+  rbenv global 2.7.1
+fi
 
 sudo su <<TXT
 echo '##### bundle gems #####'
