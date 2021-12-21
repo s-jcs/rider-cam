@@ -7,9 +7,12 @@ echo '##### installing ruby #####'
 if which ruby; then
   echo 'ruby already installed'
 else
-  sudo apt-get install rbenv
-  rbenv install -v 2.7.1
-  rbenv global 2.7.1
+  wget https://cache.ruby-lang.org/pub/ruby/2.7/ruby-2.7.1.tar.gz
+  tar xvzf ruby-2.7.1.tar.gz
+  cd ruby-2.7.5
+  ./configure
+  make
+  sudo make install
 fi
 
 sudo su <<TXT
